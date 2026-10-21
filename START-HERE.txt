@@ -1,9 +1,14 @@
-To run Market Lab without installing anything:
-1. Extract the downloaded ZIP.
-2. Open market-lab.html with Firefox, Chrome, or Edge.
+1. Extract the GitHub ZIP.
+2. Open market-lab.html with Chrome, Firefox, or Edge.
+3. In Strategy Lab, click "Finish instantly" to race algorithms through real Apple price history.
+4. Try different dates, fees, or a stock-history CSV. Export trades before leaving.
+5. For live crypto, choose "Live paper trading" and "Connect live feed". This needs Internet access to Coinbase. It trades only paper money while the tab is open. If the provider is blocked, historical replay still works.
 
-For development, install Node.js 22.12+ or 24, open a terminal in this folder, and run:
+Live sessions and replay state reset when you reload or switch modes. Manual paper trades are saved separately in this browser.
+
+For development: install Node.js 22.12+ or 24, open a terminal in this folder, then run:
 npm install
 npm run dev
 
-This is a paper trading simulator with example prices. No real money is used.
+After code changes, regenerate the standalone app with:
+npm run build:standalone
