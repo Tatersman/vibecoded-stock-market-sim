@@ -1,0 +1,9 @@
+To run Market Lab without installing anything:
+1. Extract the downloaded ZIP.
+2. Open market-lab.html with Firefox, Chrome, or Edge.
+
+For development, install Node.js 22.12+ or 24, open a terminal in this folder, and run:
+npm install
+npm run dev
+
+This is a paper trading simulator with example prices. No real money is used.
