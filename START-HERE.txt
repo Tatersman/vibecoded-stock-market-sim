@@ -1,14 +1,19 @@
 1. Extract the GitHub ZIP.
-2. Open market-lab.html with Chrome, Firefox, or Edge.
-3. In Strategy Lab, click "Finish instantly" to race algorithms through real Apple price history.
-4. Try different dates, fees, or a stock-history CSV. Export trades before leaving.
-5. For live crypto, choose "Live paper trading" and "Connect live feed". This needs Internet access to Coinbase. It trades only paper money while the tab is open. If the provider is blocked, historical replay still works.
+2. Open index.html with Chrome, Firefox, or Edge. It is the main file.
+3. Click "Run recent backtest" to watch the Daily Top Five algorithm rotate through real 2026 stock data.
+4. Use "Watch daily picks" for an animated replay, or change dates, cash, fees, and slippage.
 
-Live sessions and replay state reset when you reload or switch modes. Manual paper trades are saved separately in this browser.
+Strategy Lab contains the other algorithms. Its Live paper trading mode uses a public crypto feed; no keys needed. Keep the browser tab open. It continues when you navigate other app screens, reconnects automatically, and saves paper sessions locally. Reloaded sessions restore paused; connect again to resume.
 
-For development: install Node.js 22.12+ or 24, open a terminal in this folder, then run:
-npm install
-npm run dev
+LIVE US STOCKS (optional)
+Live stock prices require an Alpaca market-data API key and secret. Historical replay requires neither.
+1. Install Node.js 22.12+ or 24.
+2. Open a terminal in the extracted project folder.
+3. Run: npm install
+4. Copy .env.example to .env.local and put your own keys in .env.local. Never share or commit that file.
+5. Run: npm run dev
+6. Open the address printed in the terminal, then select Live stock trading and Start paper trading.
 
-After code changes, regenerate the standalone app with:
-npm run build:standalone
+The local server keeps stock paper trading running while it is on, even with the browser closed. It checks fresh IEX prices every 15 seconds and rebalances once per US market session. Server restarts restore the account paused. It never submits brokerage orders or uses real money.
+
+For development, edit src/ and app.html. Run npm run build:standalone after changes to regenerate the main index.html and compatibility market-lab.html. Run npm test and npm run build for validation.

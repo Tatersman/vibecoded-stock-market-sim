@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {JSDOM} from 'jsdom';
 import {buildSync} from 'esbuild';
 const bundle=buildSync({entryPoints:['src/main.js'],bundle:true,write:false,outdir:'out',format:'iife'}).outputFiles.find(f=>f.path.endsWith('.js')).text;
-function app(){const dom=new JSDOM('<div id="app"></div>',{url:'https://market-lab.example',runScripts:'outside-only'});dom.window.eval(bundle);return dom;}
+function app(){const dom=new JSDOM('<div id="app"></div>',{url:'https://market-lab.example',runScripts:'outside-only'});dom.window.eval(bundle);dom.window.document.querySelector('[data-view="Strategy Lab"]').click();return dom;}
 const click=(dom,s)=>{const el=dom.window.document.querySelector(s);assert.ok(el,`Missing control ${s}`);el.click()};
 const text=dom=>dom.window.document.querySelector('#strategy-lab').textContent;
 test('strategy lab renders, instant replay trades, dates reset, and manual account is retained',()=>{const dom=app();try{assert.match(text(dom),/Let your ideas trade/);click(dom,'#step');assert.match(text(dom),/1 \/ 475 bars/);click(dom,'#finish');assert.match(text(dom),/475 \/ 475 bars/);assert.ok(dom.window.document.querySelectorAll('.lab-tape tbody tr').length>3);click(dom,'#reset');assert.match(text(dom),/0 \/ 475 bars/);click(dom,'[data-view="Overview"]');click(dom,'#submit-order');assert.equal(JSON.parse(dom.window.localStorage.getItem('marketlab-v1')).holdings.AAPL.qty,1);click(dom,'[data-view="Strategy Lab"]');assert.match(text(dom),/Let your ideas trade/)}finally{dom.window.close()}});
